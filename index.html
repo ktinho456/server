@@ -1,0 +1,365 @@
+<html>  
+<head>
+<style>
+#main {
+        border:#333;
+        border-width:2px;
+        border-style:solid;
+}
+
+
+</style>
+<script src="map.js"></script>
+
+<script src="anima.js"></script>
+<script type="text/javascript">
+
+
+
+
+
+var objectDict = Array("casa1.png","arvore.png", "a.png", "b.png",  "c.png", "d.png" , "e.png" , "f.png" , "blod2.png" , "h.png" , "i.png" , "j.png" , "k.png" , "l.png" , "m.png" , "n.png" , "ffas.png" );
+var tileDict = Array("land11.png","swamp.png","swamp.png"  , "tt.png");
+var charDict = Array("mt222.png" , "lu.png" , "blod2.png" );
+var charImg = new Array();
+var tileImg = new Array();
+var objectImg = new Array();
+var loaded = 0;
+var loadTimer;
+var tileH = 25;
+var tileW = 50;
+var ymouse;
+var xmouse;
+var mapX = 550;
+var mapY = +200;
+var playerX = 10;
+var playerY = 10;
+var newplayerX = 10;
+var newplayerY = 10;
+var jogadores;
+var xpos;
+var ypos;
+var movey = 10;
+
+
+
+
+var objeto ;
+
+var t = 1;
+
+var map = mapp;
+
+
+
+
+function loadImg(){
+	for(var i=0;i<tileDict.length;i++){
+		tileImg[i] = new Image();
+		tileImg[i].src = tileDict[i];
+		tileImg[i].onload = function(){
+			loaded++;
+		}
+	}
+	for(var i=0;i<charDict.length;i++){
+		charImg[i] = new Image();
+		charImg[i].src = charDict[i];
+		charImg[i].onload = function(){
+			loaded++;
+		}
+	}
+	for(var i=0;i<objectDict.length;i++){
+		objectImg[i] = new Image();
+		objectImg[i].src = objectDict[i];
+		objectImg[i].onload = function(){
+			loaded++;
+		}
+	}
+	
+	
+}
+
+
+
+
+
+function loadAll(){
+	if(loaded == tileDict.length + charDict.length + objectDict.length){
+		clearInterval(loadTimer);
+		loadTimer = setInterval(gameUpdate,100);
+	}
+}
+
+
+function gameUpdate(){
+	ctx.clearRect(0,0,350,230)
+	drawMap();
+}
+
+
+function mouseCheck(e){
+		var x = e.pageX;
+		var y = e.pageY;
+		ymouse=(2*(y-canvas.offsetTop-mapY)-x+canvas.offsetLeft+mapX)/2;
+		xmouse=x+ymouse-mapX-25-canvas.offsetLeft
+ 		ymouse=Math.round(ymouse/25);
+		xmouse=Math.round(xmouse/25);
+		document.title = "tileY:" + ymouse + " | tileX:" + xmouse;
+		
+
+	
+}
+
+
+
+function drawMap(){
+ 
+ 
+
+
+		for(i=0;i<map.length;i++){
+				for(j=0;j<map[i].length;j++){
+					var drawTile = map[i][j];
+					var drawObj = objectMap[i][j];
+					var xpos = (i-j)*tileH + mapX;
+					var ypos = (i+j)*tileH/2+ mapY;
+					ctx.drawImage(tileImg[drawTile],xpos,ypos);
+					if(drawObj){
+						ctx.drawImage(objectImg[drawObj-1],xpos,ypos-(objectImg[drawObj-1].height));
+				}
+					
+	
+
+				
+                   
+                    
+                    if(i == playerX && j == playerY){
+						ctx.drawImage(charImg[t],xpos,ypos-(charImg[t].height));
+		  ctx.drawImage(charImg[0],currentFrame,movey,100,150,xpos,ypos -(charImg[0].height/15) ,50,100);
+		  
+		  
+		  
+				 
+						
+					}
+					if(i == xmouse && j == ymouse){
+											  ctx.fillStyle = 'rgba(255, 255, 120, 0.7)';
+											  ctx.beginPath();
+											  ctx.moveTo(xpos, ypos+12.5);
+											  ctx.lineTo(xpos+25, ypos);
+											  ctx.lineTo(xpos+50, ypos+12.5);
+											  ctx.lineTo(xpos+25, ypos+25);
+											  ctx.fill();
+											 
+						}
+				}
+				
+				
+	
+			
+		}
+		
+		
+		
+			
+};
+
+//------------------------------------------------------------------------------
+
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+function mouseClick(e)
+{
+//			image = new Image()
+//			image.src = 'avatar.png';
+var xpos = (newplayerX+newplayerY)*this.tileH/2 + mapX;
+var ypos = (newplayerX+newplayerY)*this.tileH/2+ mapY;
+
+
+	/////	 ctx.drawImage(charImg[0],xpos,ypos-(charImg[0].height/2));
+////ctx.drawImage(image,y*currentFrame,90, 50, 50, 300, 100, 50, 50);
+////ctx.drawImage(charImg[0],xpos,ypos-(charImg[0].height-2));
+
+////ctx.drawImage( objectImg[0],10,50);
+/////ctx.drawImage( objectImg[1],100,0);
+////ctx.drawImage( objectImg[2],200,0);
+////ctx.drawImage( objectImg[3],300,0);
+////ctx.drawImage( objectImg[4],400,0);
+//////ctx.drawImage( objectImg[5],500,0);
+
+if(xmouse == -13 && ymouse == 8 ) objeto = 1;
+if(xmouse == -11 && ymouse == 6 ) objeto = 2;
+if(xmouse == -7 && ymouse == 3 ) objeto = 3;
+if(xmouse == -6 && ymouse == 1 ) objeto = 4;
+if(xmouse == -3 && ymouse == -1 ) objeto = 4;
+if(xmouse == -1 && ymouse == -3 ) objeto = 5;
+
+
+
+	newX = playerX; // local copies
+	newY = playerY;
+		
+	if(xmouse > newX) newX++ //////&& mapX++;
+	if(ymouse > newY) newY++ ///////&& mapY++;
+	if(xmouse < newX) newX-- /////////&& mapX--;
+	if(ymouse < newY) newY-- ////////&& mapY--;
+	
+	
+	
+	 		if(xmouse > newX && ymouse < newY) movey = 300;
+		if(ymouse > newY && xmouse < newX) movey = 150;
+		if(ymouse > newY && xmouse > newX) movey = 550;
+		if(ymouse < newY && xmouse < newX) movey = 850;
+
+		
+		if(xmouse == newX && ymouse > newY) movey = 153;
+		if(xmouse == newX && ymouse < newY) movey = 700;
+		if(xmouse < newX && ymouse == newY) movey = 400;
+		if(xmouse > newX && ymouse == newY) movey = 295;
+	
+	
+	if(xmouse > 25)map = mapa; 	
+	
+	
+		
+	document.getElementById("vy").innerHTML = xmouse;
+    document.getElementById("vx").innerHTML = ymouse;
+
+	if(map[newX] && map[newX][newY] !== 2 && map[newX] && map[newX][newY] !== undefined)
+	
+	
+	 		
+	 
+    
+    	
+	{
+		playerX = newX;
+		playerY = newY;
+		
+		
+		
+
+	}
+	
+	
+	
+	
+	/// if(ymouse < playerY) mapX -= 30;	
+	 ////if(xmouse < playerX) mapX += 30;	
+	 /////if(ymouse > playerY) mapX += 30;	
+	 ////if(xmouse > playerX) mapX -= 30;	
+	
+	
+		
+	
+
+////alert(valor);
+
+	
+	///if(playerX == 8 && playerY == 8 ) t = 2;
+	
+	 /////objectMap [ playerX ][ playerY ] = t ; 
+	
+ /////if(playerX == 0 && playerY == 9 ) 
+ 
+ ////if(playerX == 0 && playerY == 8 ) drawMap = true;
+	 	///map[xmouse][ymouse] = 2;
+	 		
+
+//// objectMap [xmouse][ymouse] = t;
+
+};
+
+
+function checkKeycode(event) {
+var keycode;
+  if(event == null)
+  {
+    keyCode = window.event.keyCode; 
+  }
+  else 
+  {
+    keyCode = event.keyCode; 
+  }
+  document.title = keyCode;
+ 
+var newX = playerX; // local copies
+var newY = playerY;
+
+switch(keyCode)
+{
+case 38: newX--; break;
+case 40: newX++; break;
+case 39: newY--; break;
+case 37: newY++; break;
+}
+if(objectMap[newX] && objectMap[newX][newY] !== 1 &&
+map[newX] && map[newX][newY] !== undefined)
+{
+playerX = newX;
+playerY = newY;
+}
+
+}
+
+
+
+function mostrarmensagem(){
+var valor = document.getElementById("t").value;
+
+t = valor;
+
+
+
+}
+
+
+
+function init(){
+    
+document.onkeydown = checkKeycode;	
+	canvas = document.getElementById('main')
+
+	ctx = canvas.getContext('2d');	
+	loadImg();
+//	var jogadores = (newplayer,100);
+	loadTimer = setInterval(loadAll,100);
+	
+	var Timer = setInterval(mouseClick,100);
+	canvas.addEventListener("mousedown", mouseCheck, false);
+	canvas.addEventListener("mousedown", mouseClick, false);
+
+};
+
+
+</script>
+</head>
+<body onLoad="init();">
+<p id="nickname"></p>e
+<canvas id="main" width="1024" height="1024" style="margin-top:10px; margin-left:10px;"></canvas
+
+
+
+onload="initPage();"
+		onunload="exitPage();"
+		>
+        <div id="y">posicaox >> <span id="vy"></span></div>
+        <div id="y">posicaoy >> <span id="vx"></span></div>
+      
+ 
+ <input id ="t"type="text"/>
+<input type="boton" value="mostrar" onclick ="mostrarmensagem()"/;>
+      
+      
+      <p id="log"></p>
+      <p id="data_recieved"></p>
+      
+   
+   </body>
+      
+</html>
