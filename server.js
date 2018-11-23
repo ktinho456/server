@@ -12,7 +12,7 @@
     }
 };
   
-  var io = require('socket.io').listen(3000);
+  var io = require('socket.io').listen(80);
 
    var players = {}, count = 0;
 
