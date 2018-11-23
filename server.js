@@ -40,8 +40,8 @@ io.sockets.on('connection',
             player.z = data.z;
 
 
-            socket.emit('position', {pid : player.id, playerX : player.x, playerY : player.y, z : player.z});
-            socket.broadcast.emit('position', {pid : player.id, playerX : player.x, playerY : player.y, z : player.z});
+            socket.emit('position', {pid : player.id, playerX : player.x, playerY : player.y});
+            socket.broadcast.emit('position', {pid : player.id, playerX : player.x, playerY : player.y});
         }); 
 
     socket.on('register',
