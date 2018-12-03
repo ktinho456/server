@@ -169,65 +169,139 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
       
       
 
-      var name = '';
-////var socket = io.connect('http://localhost:8000');
-         
-         // at document read (runs only ones).
-         $(document).ready(function(){
-            // on click of the button (jquery thing)
-            // the things inside this clause happen only when 
-            // the button is clicked.
+$(document).ready(function(){
+            // no clique do botão (coisa jquery)
+                //as coisas dentro desta cláusula acontecer somente quando
+              //  o botão é clicado.
             $("button").click(function(){
             
-               // just some simple logging
+               // apenas registro algumas simples
                $("p#log").html('sent message: ' + $("input#msg").val());
                
-               // send message on inputbox to server
+               // enviar mensagem para o servidor em inputbox
                socket.emit('chat', $("input#msg").val() );
                
-               // the server will recieve the message, 
-               // then maybe do some processing, then it will 
-               // broadcast it again. however, it will not 
-               // send it to the original sender. the sender
-               // will be the browser that sends the msg. 
-               // other browsers listening to the server will
-               // recieve the emitted message. therefore we will
-               // need to manually print this msg for the sender.
+                // O servidor receberá a mensagem,
+                // Então talvez fazer algum processamento, então ele irá
+                // Transmiti-lo novamente. no entanto, não vai
+                // Envia para o remetente original. o remetente
+                // Será o navegador que envia a msg.
+                // Outros navegadores de escuta para o servidor irá
+                // Receber a mensagem emitida. Desta forma, pretendemos
+                // Necessário imprimir manualmente esta msg para o remetente.
                $("p#data_recieved").append("<br />\r\n" + name + ': ' + $("input#msg").val());
                
-               // then we empty the text on the input box.
+               // então esvaziar o texto na caixa de entrada.
                $("input#msg").val('');
             });
             
-            // ask for the name of the user, ask again if no name.
+            // pedir o nome do usuário, perguntar de novo se nenhum nome.
             while (name == '') {
-               name = prompt("What's your name?","");
+               name = prompt("qual é o seu nome?","");
             }
             
-            // send the name to the server, and the server's 
-            // register wait will recieve this.
+			$("p#nickname").append(name)
+            // enviar o nome para o servidor, e do servidor
+             // Registra espera vai receber isso.
             socket.emit('register', name );
-            
-           //// socket.emit(newX , newY);
          });
          
-         // listen for chat event and recieve data
-         socket.on('chat', function (data) {
+         // ouvir para o evento de bate-papo e dados recieve
+			socket.on('chat',
+				function (data)
+				{
+					
+
+					$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
+                                       ///// $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.playerY);
+          
          
-            // print data (jquery thing)
-            $("p#data_recieved").append("<br />\r\n" + data.msge + ': ' + data.message);
+          
+					// nós registramos este evento para se divertir: D
+				    
+				      $("p#log").html('got message: ' + data.message);
+					///// $("p#log").html('got message: ' + data.msg + data.message );
+
+
+
+          
             
-            // we log this event for fun :D
-            $("p#log").html('got message: ' + data.message);
-            
-         });
+				}
+			);
+
+
+
+
+
+
+
+			
+			socket.on('position',
+				function (data)
+				{
+					console.log(data)
+
+                                       //// $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' +output);
+				       /////// $("p#data_recieved").append("<br />\r\n [positions] {" + data.msgr + ": playerX = " + data.playerX + ", playerY = " + data.playerY + "}");
+
+
+
+
+
+
+
+  }
+
+
+			
+
+
+				}
+			);
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<body onLoad="init();">
+<p id="nickname"></p>
+<canvas id="main" width="750" height="550" style="margin-top:10px; margin-left:10px;"></canvas
+
+
+
+onload="initPage();"
+		onunload="exitPage();"
+		>
+
+        <div id="l">level >> <span id="lvl"></span></div>
+        <div id="p">pontos >> <span id="pts"></span></div>
+
+     
+	
+	        <div id="y">mesnsagens do server >> <span id="vy"></span></div>
+        <div id="y">mesnsagens do server >> <span id="vx"></span></div>
+       <input type="text" id="msg"></input><button>Click me</button>
+      <p id="log"></p>
+      <p id="data_recieved"></p>
+	
+
+ 
       
+      <p id='server-time'></p>
+      <p id="log12"></p>
+	
+   
       
+   
+   </body>
       
-    </script>
-    
-     <input type="text" id="msg"></input><button>Click me</button>
-              <p id="log"></p>
-<p id="data_recieved"></p>
-  </body>
 </html>
