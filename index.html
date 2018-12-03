@@ -215,7 +215,7 @@ $(document).ready(function(){
 					$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
                                        ///// $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.playerY);
           
-         
+          $("p#data_recieved").append("<br />\r\n [chat] {" + data.msg + ": playerX = " + data.message + ", playerY = " + data.message+ "}");
           
 					// nós registramos este evento para se divertir: D
 				    
