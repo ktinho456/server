@@ -222,7 +222,14 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
             
             // we log this event for fun :D
             $("p#log").html('got message: ' + data.msg);
-            
+		 
+		 
+		 
+		$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
+		 
+             $("p#log").html('got message: ' + data.message);  
+		 
+		 
          });
 
 
