@@ -215,7 +215,7 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
          socket.on('chat', function (data) {
          
             // print data (jquery thing)
-            $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.msg);
+            $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.message);
             
             // we log this event for fun :D
             $("p#log").html('got message: ' + data.msg);
