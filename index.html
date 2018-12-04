@@ -239,13 +239,13 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
            ////// $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.msg);
             
             // we log this event for fun :D
-          ////  $("p#log").html('got message: ' + data.msg);
+            $("p#log").html('got message: ' + data.msg);
 		 
-		$("p#data_recieved").append("<br />\r\n [positions] {" + data.msgr + ": playerX = " + data.playerX + ", playerY = " + data.playerY + "}"); 
+		$("p#data_recieved").append("<br />\r\n [positions] {" + data.name + ": playerX = " + data.message + ", playerY = " + data.msg + "}"); 
 		 
 	$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
 		 
-             $("p#log").html('got message: ' + data.message);  
+          //////   $("p#log").html('got message: ' + data.message);  
 		 
 		 
          });
