@@ -186,7 +186,7 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
                $("p#log").html('sent message: ' + $("input#msg").val());
                
                // send message on inputbox to server
-               socket.emit('chat', $("input#msg").val() );
+               socket.emit('chat', $("input#msg").val("bicho foi daqui") );
                
                // the server will recieve the message, 
                // then maybe do some processing, then it will 
@@ -243,12 +243,12 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
 		 
 		$("p#data_recieved").append("<br />\r\n [chat] {" + data.name + ": playerX = " + data.message + ", playerY = " + data.msg + "}"); 
 		 
-	$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
+	///$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
 		 
              $("p#log").html('got message: ' + data.message);  
 		 
 		 
-         });
+        });
 
 
 
