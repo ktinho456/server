@@ -186,6 +186,7 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
         });
         socket.on('chat message', function(msg){
           $('#messages').append($('<li>').text(msg));
+		$('p#data_recieved').append($('<li>').text(msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
       });
