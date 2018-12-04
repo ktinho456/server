@@ -180,8 +180,9 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
             // on click of the button (jquery thing)
             // the things inside this clause happen only when 
             // the button is clicked.
-            $("button").click(function(){
-            
+           //// $("button").click(function(){
+            $("button#send").click(function()
+				{
                // just some simple logging
                $("p#log").html('sent message: ' + $("input#msg").val());
                
