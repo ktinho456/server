@@ -1,8 +1,6 @@
-
-
+<!doctype html>
 <html>
-	
-	  <head>
+  <head>
     <title>Socket.IO chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,23 +13,12 @@
       #messages li:nth-child(odd) { background: #eee; }
       #messages { margin-bottom: 40px }
     </style>
-</head>
-	
-	
-	
-	
+  </head>
   <body>
-	  
-	  
-	  
-	  
-	  
-	  
-          <p id="log"></p>
-      <p id="data_recieved"></p>
-    
-    
-    <p id='server-time'></p>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+</form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       
@@ -190,89 +177,7 @@ f.top,left:d.left-f.left}},offsetParent:function(){return this.map(function(){fo
 "pageXOffset"]:c.support.boxModel&&j.document.documentElement[d]||j.document.body[d]:e[d]}});c.each(["Height","Width"],function(a,b){var d=b.toLowerCase();c.fn["inner"+b]=function(){return this[0]?c.css(this[0],d,false,"padding"):null};c.fn["outer"+b]=function(f){return this[0]?c.css(this[0],d,false,f?"margin":"border"):null};c.fn[d]=function(f){var e=this[0];if(!e)return f==null?null:this;if(c.isFunction(f))return this.each(function(j){var i=c(this);i[d](f.call(this,j,i[d]()))});return"scrollTo"in
 e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["client"+b]||e.document.body["client"+b]:e.nodeType===9?Math.max(e.documentElement["client"+b],e.body["scroll"+b],e.documentElement["scroll"+b],e.body["offset"+b],e.documentElement["offset"+b]):f===w?c.css(e,d):this.css(d,typeof f==="string"?f:f+"px")}});A.jQuery=A.$=c})(window);
       
-          var socket = io();
-      var el = document.getElementById('server-time');
-	    
-	socket.on('time', function(timeString) {
-        el.innerHTML = 'Server time: ' + timeString;
-      });
-      
-    var name = '';
-////var socket = io.connect('http://localhost:8000');
-         
-         // at document read (runs only ones).
-         $(document).ready(function(){
-            // on click of the button (jquery thing)
-            // the things inside this clause happen only when 
-            // the button is clicked.
-           //// $("button").click(function(){
-            $("button#send").click(function()
-				{
-               // just some simple logging
-               $("p#log").html('sent message: ' + $("input#msg").val());
-               
-               // send message on inputbox to server
-               socket.emit('chat', $("input#msg").val("bicho foi daqui") );
-               
-               // the server will recieve the message, 
-               // then maybe do some processing, then it will 
-               // broadcast it again. however, it will not 
-               // send it to the original sender. the sender
-               // will be the browser that sends the msg. 
-               // other browsers listening to the server will
-               // recieve the emitted message. therefore we will
-               // need to manually print this msg for the sender.
-               $("p#data_recieved").append("<br />\r\n" + name + ': ' + $("input#msg").val());
-               
-               // then we empty the text on the input box.
-               $("input#msg").val('');
-            });
-            
-            // ask for the name of the user, ask again if no name.
-            while (name == '') {
-               name = prompt("What's your name?","");
-            }
-            
-            // send the name to the server, and the server's 
-            // register wait will recieve this.
-            socket.emit('register', name );
-            
-           //// socket.emit(newX , newY);
-         });
-	    
-	
-	    
-	    
-	    
-	    
-	    
-         
-         // listen for chat event and recieve data
-         socket.on('chat', function (data) {
-         
-            // print data (jquery thing)
-           ////// $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.msg);
-            
-            // we log this event for fun :D
-           ///// $("p#log").html('got message: ' + data.msg);
-		 
-		$("p#data_recieved").append("<br />\r\n [chat] {" + data.name + ": playerX = " + data.message + ", playerY = " + data.msg + "}"); 
-		 
-	///$("p#data_recieved").append("<br />\r\n" + data.msg  + ': ' + data.message);
-		 
-             $("p#log").html('got message: ' + data.message);  
-		 
-		 
-        });
-
-
-
-
-	    
-	    
-	    
-	    
-	          $(function () {
+      $(function () {
         var socket = io();
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
@@ -292,44 +197,6 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
 
 
 
-</script>
-	  
-	  
-	      <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-</form>
-	  
-	  
-	  
-	  
-
-
-<p id="nickname"></p>
-
-
-        <div id="l">level >> <span id="lvl"></span></div>
-        <div id="p">pontos >> <span id="pts"></span></div>
-
-     
-	
-	        <div id="y">mesnsagens do server >> <span id="vy"></span></div>
-        <div id="y">mesnsagens do server >> <span id="vx"></span></div>
-       <input type="text" id="msg"></input><button>button</button>
-	<input type="text" id="msg"></input><button id="send">Send</button>
-	
-      <p id="log"></p>
-      <p id="data_recieved"></p>
-	
-
- 
-      
-      <p id='server-time'></p>
-      <p id="log12"></p>
-	
-   
-      
-   
-   </body>
-      
+    </script>
+  </body>
 </html>
