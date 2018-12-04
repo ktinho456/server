@@ -187,6 +187,9 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
         socket.on('chat message', function(msg){
           $('#messages').append($('<li>').text(msg));
 		$('p#data_recieved').append($('<li>').text(msg));
+		
+		$("p#data_recieved").append("<br />\r\n" + data.message + ': ' + msg);
+		
           window.scrollTo(0, document.body.scrollHeight);
         });
       });
@@ -204,7 +207,7 @@ var name = '';
             $("button").click(function(){
             
                // just some simple logging
-               $("p#log").html('sent message: ' + $("input#msg").val());
+              //// $("p#log").html('sent message: ' + $("input#msg").val());
                
                // send message on inputbox to server
                socket.emit('chat', $("input#msg").val() );
@@ -239,7 +242,7 @@ var name = '';
          socket.on('chat', function (data) {
          
             // print data (jquery thing)
-        ////    $("p#data_recieved").append("<br />\r\n" + data.message + ': ' + data.msg);
+         ////   $("p#data_recieved").append("<br />\r\n" + data.message + ': ' + data.msg);
             
             // we log this event for fun :D
          ////   $("p#log").html('got message: ' + data.msg);
@@ -252,8 +255,7 @@ var name = '';
 
     </script>
 	  
-	          <div id="y">mesnsagens do server >> <span id="vx"></span></div>
-       <input type="text" id="msg"></input><button>Click me</button>
+
       <p id="log"></p>
 <p id="data_recieved"></p>
 	  
