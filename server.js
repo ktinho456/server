@@ -61,6 +61,16 @@ io.sockets.on('connection',
             socket.emit('chat', { message: message});
             socket.broadcast.emit('chat', { message: message});
         });
+  
+  
+  io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+  
+  
+  
 
     socket.on('position',
         function (data)
