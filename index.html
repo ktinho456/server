@@ -185,10 +185,10 @@ e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["
           return false;
         });
         socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
+         //// $('#messages').append($('<li>').text(msg));
 		$('p#data_recieved').append($('<li>').text(msg));
 		
-		$("p#data_recieved").append("<br />\r\n" + data.message + ': ' + msg);
+		/////$("p#data_recieved").append("<br />\r\n" + data.message + ': ' + msg);
 		
           window.scrollTo(0, document.body.scrollHeight);
         });
@@ -210,7 +210,7 @@ var name = '';
               //// $("p#log").html('sent message: ' + $("input#msg").val());
                
                // send message on inputbox to server
-               socket.emit('chat', $("input#msg").val() );
+               ////socket.emit('chat', $("input#msg").val() );
                
                // the server will recieve the message, 
                // then maybe do some processing, then it will 
@@ -220,10 +220,10 @@ var name = '';
                // other browsers listening to the server will
                // recieve the emitted message. therefore we will
                // need to manually print this msg for the sender.
-               $("p#data_recieved").append("<br />\r\n" + name + ': ' + $("input#msg").val());
+               ////$("p#data_recieved").append("<br />\r\n" + name + ': ' + $("input#msg").val());
                
                // then we empty the text on the input box.
-               $("input#msg").val('');
+               ////$("input#msg").val('');
             });
             
             // ask for the name of the user, ask again if no name.
@@ -235,7 +235,7 @@ var name = '';
             // register wait will recieve this.
             socket.emit('register', name );
             
-            socket.emit(newX , newY);
+           ///// socket.emit(newX , newY);
          });
          
          // listen for chat event and recieve data
