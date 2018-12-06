@@ -25,11 +25,11 @@
                 height: 85%;
                 text-align: left;
                 text-indent: 2%;
-                overflow: scroll;
+                overflow: auto;
             }
-            #m {width: 80%; margin-top: 0.3%}
+            #m {width: 78%; margin-top: 0.3%}
             #boneco {width: 50%; height: 500px;background-color: antiquewhite;float: left;}
-            form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+            form button { width: 12%; background: rgb(130, 224, 255); border: none; padding: 10px; }
             form input { border: solid 1px; padding: 10px; width: 90%; margin-right: .5%; }
         </style>
     </head>
@@ -37,9 +37,9 @@
     <center>
         <div id="boneco">boneco</div>
         <div id="conteiner">
-            <p id="messages">asdasda</p>
+            <p id="messages"></p>
             <form action="">
-                <input id="m" autocomplete="off" /><button>Send</button>
+                <input id="m" autocomplete="off" maxlength="400" /><button>Enviar</button>
             </form>
         </div>
     </center>
